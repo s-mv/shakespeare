@@ -11,5 +11,5 @@ build/%.o: src/%.cpp
 name = test
 # helper to make new source-header pairs
 new:
-	@printf "#ifndef smv_$(title)_$(name)_hpp\n#define smv_$(title)_$(name)_h\n\n\n#endif" > include/$(name).hpp
+	@printf "#ifndef smv_$(title)_$(name)_hpp\n#define smv_$(title)_$(name)_hpp\n\n\n#endif" > include/$(name).hpp
 	@printf "#include \"$(name).hpp\"" > src/$(name).cpp

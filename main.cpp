@@ -1,7 +1,8 @@
 #include <cstdlib>
 #include <iostream>
-#include <map>
 #include <string>
+
+#include "params.hpp"
 
 void print_usage() {
   std::cout
@@ -17,16 +18,31 @@ int main(int argc, char* argv[]) {
     return 1;
   }
 
-  std::map<std::string, std::string> params;
+  Params params;
 
   for (int i = 1; i < argc; i++) {
     std::string arg = argv[i];
 
-    // Check if the argument is one of the expected options
-    if (arg == "-i" || arg == "-t" || arg == "-o") {
+    if (arg == "-i") {
       if (i + 1 < argc) {
-        params[arg] = argv[i + 1];
-        i++; 
+        params.inputFile = argv[i + 1];
+        i++;
+      } else {
+        std::cerr << "Error: Missing value for " << arg << std::endl;
+        return 1;
+      }
+    } else if (arg == "-t") {
+      if (i + 1 < argc) {
+        params.trainingText = argv[i + 1];
+        i++;
+      } else {
+        std::cerr << "Error: Missing value for " << arg << std::endl;
+        return 1;
+      }
+    } else if (arg == "-o") {
+      if (i + 1 < argc) {
+        params.outputFile = argv[i + 1];
+        i++;
       } else {
         std::cerr << "Error: Missing value for " << arg << std::endl;
         return 1;
@@ -38,20 +54,20 @@ int main(int argc, char* argv[]) {
     }
   }
 
-  if (params.find("-i") != params.end()) {
-    std::cout << "Input File: " << params["-i"] << std::endl;
+  if (!params.inputFile.empty()) {
+    std::cout << "Input File: " << params.inputFile << std::endl;
   } else {
     std::cout << "No input file provided." << std::endl;
   }
 
-  if (params.find("-t") != params.end()) {
-    std::cout << "Training File: " << params["-t"] << std::endl;
+  if (!params.trainingText.empty()) {
+    std::cout << "Training File: " << params.trainingText << std::endl;
   } else {
     std::cout << "No training file provided." << std::endl;
   }
 
-  if (params.find("-o") != params.end()) {
-    std::cout << "Output File: " << params["-o"] << std::endl;
+  if (!params.outputFile.empty()) {
+    std::cout << "Output File: " << params.outputFile << std::endl;
   } else {
     std::cout << "No output file provided." << std::endl;
   }
