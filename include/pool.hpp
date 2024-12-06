@@ -4,11 +4,15 @@
 
 #include "entity.hpp"
 
+#define POOL_SIZE (2 << 10)
+
 class Pool {
   std::vector<Entity> entities;
 
- public:
-  Pool() {}
+public:
+  bool push_entity(Entity e);
+  void fill_randomly();
+  Entity fittest_entity();
 };
 
 #endif

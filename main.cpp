@@ -3,6 +3,7 @@
 #include <string>
 
 #include "params.hpp"
+#include "pool.hpp"
 
 void print_usage() {
   std::cout
@@ -12,7 +13,7 @@ void print_usage() {
             << std::endl;
 }
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
   if (argc % 2 != 1) {
     print_usage();
     return 1;
@@ -71,6 +72,14 @@ int main(int argc, char* argv[]) {
   } else {
     std::cout << "No output file provided." << std::endl;
   }
+
+  // testing stuff don't mind me
+  // temporary code
+  Pool pool = Pool();
+  pool.fill_randomly();
+
+  Entity e = pool.fittest_entity();
+  e.dna_description();
 
   return 0;
 }
